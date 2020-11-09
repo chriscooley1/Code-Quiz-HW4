@@ -29,7 +29,11 @@ function startHandler () {
 function getQuestion () {
     var currentQuestion = questionsArray[questionIndex]
     var questionTitle = document.getElementById ("question-title")
+    var questionChoice = document.getElementById ("choices")
+    var answer = document.getElementById ("answer")
     questionTitle.textContent = currentQuestion.title
+    questionChoice.textContent = currentQuestion.possibleAnswers
+    answer.textContent = currentQuestion.answer
 }
 // click button starts timer, also unhides first question
 startButton.onclick = startHandler;

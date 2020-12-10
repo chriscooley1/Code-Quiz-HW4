@@ -66,16 +66,21 @@ function getQuestion () {
         options.setAttribute("class", "choice")
         options.setAttribute("value", choice)
         options.textContent = choice
+        options.onclick = steve
 
         // create the onclick for choice
 
         questionChoice.appendChild(options)
     })
-    
+       
     // var answer = document.getElementById ("answer")
     // questionTitle.textContent = currentQuestion.question
     // questionChoice.textContent = currentQuestion.answer1
     // answer.textContent = currentQuestion.correctAnswer
+}
+
+function getInfo() {
+    this.value
 }
 // click button starts timer, also unhides first question
 startButton.onclick = startHandler;

@@ -32,3 +32,81 @@ function startQuiz(){
     questionsArray.push(q5);
 };
 
+function pickQuestion(){
+    if (questionsArray.length > 0){
+        var qSelected = Math.floor(Math.random() * questionsArray.length);
+        currentQuestion =questionsArray.splice(qSelected, 1)[0];
+        askQuestion(currentQuestion);
+    }else{
+        alert("No more questions");
+        endQuiz();
+    }
+};
+
+function askQuestion(question){
+    askElement.textContent = question.ask;
+
+    optionsElement.innerHTML = "";
+    for (let i = 0; i < question.options.length; i++){
+        let rowEl = document.createElement("div");
+        rowEl.className = "row m-2";
+
+        let optionEl = document.createElement("div");
+        optionEl.className = "col-6 mx-auto text-left btn btn-primary text-white";
+        optionEl.setAttribute("data-option", i);
+        optionEl.textContent = i+1 + ". " + question.options[i];
+
+        rowEl.appendChild(optionEl);
+        optionsElement.appendChild(rowEl);
+    }
+
+    runningScoreElement.textContent = "Score:" + runningScore;
+};
+
+function answeredQuestion(event){
+    let alertEl = document.createElement("div");
+    alertEl.setAttribute("role", "alert");
+    alertEl.id = "alert-at-"+secondsRemaining;
+
+    if (parseInt(event.target.getAttribute("data-option")) === currentQuestion.answerIndex){
+        alertEl.className = "mx-auto alert alert-success";
+        alertEl.textContent = "Correct";
+        runningScore+= 1;
+    }else{
+        alertEl.className = "mx-auto alert alert-danger";
+        alertEl.textContent = "Wrong!";
+        secondsRemaining-= 10;
+    }
+    questionResultsElement.appendChild(alertEl);
+
+    setTimeout(function(){
+        $("#"+alertEl.id).alert("close");
+    },3000);
+    pickQuestion();
+};
+
+function reduceTimer(){
+    secondsRemaining--;
+    if (secondsRemaining <= 0){
+        endQuiz();
+    }
+    timerElement.textContent = "Time:"+secondsRemaining + " sec";
+};
+
+function beginQuiz(){
+    startQuiz();
+    pickQuestion();
+    timerElement = setInterval(reduceTimer, 1000);
+};
+
+function endQuiz(){
+    console.log("ending quiz");
+    clearInterval(timerInterval);
+    if (secondsRemaining > 0){
+        runningScore+= secondsRemaining;
+    }
+    localStorage.setItem("score", runningScore);
+    window.location.replace("./score.html");
+}
+
+beginQuiz();

@@ -1,86 +1,34 @@
-var startButton = document.getElementById ("start");
-var questionsEl = document.getElementById ("question");
-var nextButton = document.getElementById("next-button");
-var questionIndex = 0
-var questionsArray = [
-    {
-        question: "Commonly used data types DO Not include:",
-        answers: ["strings", "booleans", "alerts", "numbers"],
-        correctAnswer: "alerts",
-    },
-    // {
-    //     question: "The condition in an if/else statement is enclosed within ____.",
-    //     answer1: "quotes",
-    //     answer2: "curly brackets",
-    //     answer3: "parenthesis",
-    //     answer4: "square brackets",
-    //     correctAnswer: "parenthesis",
-    // },
-    // {
-    //     question: "Arrays in Javascript can be used to store ____.",
-    //     answer1: "numbers and strings",
-    //     answer2: "other arrays",
-    //     answer3: "booleans",
-    //     answer4: "all of the above",
-    //     correctAnswer: "all of the above",
-    // },
-    // {
-    //     question: "String values must be enclosed within ____ when being assigned to variables.",
-    //     answer1: "commas",
-    //     answer2: "curly brackets",
-    //     answer3: "quotes",
-    //     answer4: "parenthesis",
-    //     correctAnswer: "quotes",
-    // },
-    // {
-    //     question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    //     answer1: "Javascript",
-    //     answer2: "terminal/bash",
-    //     answer3: "for loops",
-    //     answer4: "console.log",
-    //     correctAnswer: "console.log",
-    // },
-]
+function Question(ask, options, answerIndex) {
+    this.ask = ask;
+    this.options = options;
+    this.answerIndex = answerIndex;
+};
 
-function startHandler () {
-    var startScreen = document.getElementById ("start-screen");
-    startScreen.setAttribute("class", "hide")
+var questionsArray = [];
+var currentQuestion = Question("", [], 0);
+var timerInterval;
+var secondsRemaining = 90;
+var runningScore = 0;
 
-    questionsEl.removeAttribute("class")
+let askElement = document.getElementById("ask");
+let optionsElement = document.getElementById("options");
+let questionResultsElement = document.getElementById("question-results");
+let runningScoreElement = document.getElementById("running-score");
+let timerElement = document.getElementById("timer");
 
-    console.log("startButton");
+optionsElement.addEventListener("click", answeredQuestion);
 
-    getQuestion()
-    // hide start screen element, unhide questions, start timer, show time
-}
+function startQuiz(){
+    var q1 = new Question("Commonly used data types DO NOT include ___:", ["strings", "booleans", "alerts", "numbers"], 2);
+    var q2 = new Question("The condition in an if/else statement is enclosed within ___:", ["quotes", "curly brackets", "paranthesis", "square brackets"], 2);
+    var q3 = new Question("Arrays in Javascript can be used to store ___:", ["numbers and strings", "other arrays", "booleans", "all of the above"], 3);
+    var q4 = new Question("String values must be enclosed within ___ when being assigned to variables.", ["commas", "curly brackets", "quotes", "paranthesis"], 2);
+    var q5 = new Question("A very useful tool used during development and debugging for printing content to the debugger is ___:", ["JavaScript", "Terminal/Bash", "for loops", "console.log"], 3);
 
-function getQuestion () {
-    var currentQuestion = questionsArray[questionIndex]
-    var questionTitle = document.getElementById ("question-title")
-    var questionChoice = document.getElementById ("choices")
-    questionTitle.textContent = currentQuestion.question
+    questionsArray.push(q1);
+    questionsArray.push(q2);
+    questionsArray.push(q3);
+    questionsArray.push(q4);
+    questionsArray.push(q5);
+};
 
-    currentQuestion.answers.forEach(function(choice, i) {
-        var options = document.createElement("button")
-
-        options.setAttribute("class", "choice")
-        options.setAttribute("value", choice)
-        options.textContent = choice
-        options.onclick = steve
-
-        // create the onclick for choice
-
-        questionChoice.appendChild(options)
-    })
-       
-    // var answer = document.getElementById ("answer")
-    // questionTitle.textContent = currentQuestion.question
-    // questionChoice.textContent = currentQuestion.answer1
-    // answer.textContent = currentQuestion.correctAnswer
-}
-
-function getInfo() {
-    this.value
-}
-// click button starts timer, also unhides first question
-startButton.onclick = startHandler;

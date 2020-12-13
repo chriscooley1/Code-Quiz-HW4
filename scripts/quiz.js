@@ -12,7 +12,7 @@ var runningScore = 0;
 
 let askElement = document.getElementById("ask");
 let optionsElement = document.getElementById("options");
-let questionResultsElement = document.getElementById("question-results");
+let correctWrongElement = document.getElementById("correct-wrong");
 let runningScoreElement = document.getElementById("running-score");
 let timerElement = document.getElementById("timer");
 
@@ -34,8 +34,8 @@ function startQuiz(){
 
 function pickQuestion(){
     if (questionsArray.length > 0){
-        var qSelected = Math.floor(Math.random() * questionsArray.length);
-        currentQuestion =questionsArray.splice(qSelected, 1)[0];
+        var qPicked = Math.floor(Math.random() * questionsArray.length);
+        currentQuestion = questionsArray.splice(qPicked, 1)[0];
         askQuestion(currentQuestion);
     }else{
         alert("No more questions");
@@ -77,7 +77,7 @@ function answeredQuestion(event){
         alertEl.textContent = "Wrong!";
         secondsRemaining-= 10;
     }
-    questionResultsElement.appendChild(alertEl);
+    correctWrongElement.appendChild(alertEl);
 
     setTimeout(function(){
         $("#"+alertEl.id).alert("close");
@@ -96,7 +96,7 @@ function reduceTimer(){
 function beginQuiz(){
     startQuiz();
     pickQuestion();
-    timerElement = setInterval(reduceTimer, 1000);
+    timerInterval = setInterval(reduceTimer, 1000);
 };
 
 function endQuiz(){

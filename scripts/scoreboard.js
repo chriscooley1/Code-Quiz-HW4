@@ -8,7 +8,7 @@ let scoresElement = document.getElementById("scores");
 
 clearScoreElement.addEventListener("click", clearScores);
 
-function updateScoreboard(scores){
+function populateScoreboard(scores){
     if (scores === null){
         return;
     }
@@ -25,6 +25,7 @@ function updateScoreboard(scores){
 
         let playerEl = document.createElement("div");
         playerEl.className = "mx-auto mr-2 text-center text-secondary player";
+        playerEl.textContent = scores[i].player
 
         let scoreEl = document.createElement("div");
         scoreEl.className = "mr-auto ml text-right text-secondary score";

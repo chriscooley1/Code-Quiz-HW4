@@ -1,3 +1,22 @@
-.hide {
-    display: none;
+:root{
+    --main-color:purple;
+    --main-hover-color:blue;
+}
+.btn-primary{
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+.btn-primary:hover{
+    background-color: var(--main-hover-color);
+    border-color: var(--main-hover-color);
+}
+.btn-primary:focus{
+    background-color: var(--main-hover-color);
+    border-color: var(--main-hover-color);
+}
+.text-color-main{
+    color: var(--main-color);
+}
+a{
+    color: var(--main-color);
 }
